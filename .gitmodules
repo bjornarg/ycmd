@@ -22,3 +22,6 @@
 [submodule "third_party/gocode"]
 	path = third_party/gocode
 	url = https://github.com/nsf/gocode.git
+[submodule "third_party/racer"]
+	path = third_party/racer
+	url = https://github.com/phildawes/racer.git

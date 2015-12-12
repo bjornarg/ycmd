@@ -158,6 +158,8 @@ def ParseArguments():
                        help = 'Build C# semantic completion engine.' )
   parser.add_argument( '--gocode-completer', action = 'store_true',
                        help = 'Build Go semantic completion engine.' )
+  parser.add_argument( '--rust-completer', action = 'store_true',
+                       help = 'Build Rust semantic completion engine.' )
   parser.add_argument( '--system-boost', action = 'store_true',
                        help = 'Use the system boost instead of bundled one. '
                        'NOT RECOMMENDED OR SUPPORTED!')
@@ -252,6 +254,13 @@ def BuildGoCode():
   os.chdir( p.join( DIR_OF_THIS_SCRIPT, 'third_party', 'gocode' ) )
   subprocess.check_call( [ 'go', 'build' ] )
 
+def BuildRacer():
+    if not find_executable( 'cargo' ):
+        sys.exit( 'cargo is required to build racer' )
+
+    os.chdir( p.join( DIR_OF_THIS_SCRIPT, 'third_party', 'racer' ) )
+    subprocess.check_call( [ 'cargo', 'build', '--release' ] )
+
 
 def Main():
   CheckDeps()
@@ -261,6 +270,8 @@ def Main():
     BuildOmniSharp()
   if args.gocode_completer:
     BuildGoCode()
+  if args.rust_completer:
+    BuildRacer()
 
 if __name__ == '__main__':
   Main()
